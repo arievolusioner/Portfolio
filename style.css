@@ -372,6 +372,10 @@ section { padding: 100px 60px; }
   overflow: hidden;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   cursor: pointer;
+  /* Fix: hilangkan styling default dari tag <a> */
+  text-decoration: none;
+  color: inherit;
+  display: block;
 }
 
 .project-card:hover {
