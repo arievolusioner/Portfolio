@@ -1,16 +1,10 @@
-/* ══════════════════════════════════════
-   PORTFOLIO — script.js
-   ══════════════════════════════════════ */
-
-// ── Timeline: muncul saat di-scroll ke area tersebut
+// Timeline: muncul saat di-scroll
 const timelineItems = document.querySelectorAll('.timeline-item');
 
 const timelineObserver = new IntersectionObserver(entries => {
   entries.forEach((entry, i) => {
     if (entry.isIntersecting) {
-      setTimeout(() => {
-        entry.target.classList.add('visible');
-      }, i * 120);
+      setTimeout(() => entry.target.classList.add('visible'), i * 120);
     }
   });
 }, { threshold: 0.2 });
@@ -18,7 +12,7 @@ const timelineObserver = new IntersectionObserver(entries => {
 timelineItems.forEach(item => timelineObserver.observe(item));
 
 
-// ── Fade-in saat scroll: project cards & about grid
+// Fade-in scroll: project cards & about grid
 const fadeElements = document.querySelectorAll('.project-card, .about-grid');
 
 const fadeObserver = new IntersectionObserver(entries => {
@@ -38,25 +32,36 @@ fadeElements.forEach(el => {
 });
 
 
-// ── Nav mengecil saat scroll ke bawah
+// Nav mengecil saat scroll
 window.addEventListener('scroll', () => {
   const nav = document.querySelector('nav');
-  if (window.scrollY > 60) {
-    nav.style.padding = '14px 60px';
-  } else {
-    nav.style.padding = '20px 60px';
-  }
+  nav.style.padding = window.scrollY > 60 ? '14px 60px' : '20px 60px';
 });
 
 
-// ── Form submit handler
+// Hamburger menu
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobileMenu');
+
+hamburger.addEventListener('click', () => {
+  hamburger.classList.toggle('open');
+  mobileMenu.classList.toggle('open');
+});
+
+document.querySelectorAll('.mobile-link').forEach(link => {
+  link.addEventListener('click', () => {
+    hamburger.classList.remove('open');
+    mobileMenu.classList.remove('open');
+  });
+});
+
+
+// Form submit handler
 function handleSubmit(e) {
   e.preventDefault();
   const btn = e.target.querySelector('.btn-send');
-
   btn.textContent = 'Sent! ✓';
   btn.style.background = '#4a5740';
-
   setTimeout(() => {
     btn.textContent = 'Send Message →';
     btn.style.background = '';
